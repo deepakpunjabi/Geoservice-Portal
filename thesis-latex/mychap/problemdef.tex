@@ -1,0 +1,90 @@
+\chapter{Problem Formulation and Complexity Analysis}
+\section{Problem Statement}
+Consider an area of interest as a rectangular area, $\mathbb{A}$ and a set of static sensor nodes, $S=\{ s_1,...,s_p \}$ are placed in some locations in $\mathbb{A}$. Let $M=\{ m_1,...,m_q \}$ denote the set of \textit{mobile sensor nodes (MSNs)} and each mobile sensor node is attached to one of the \textit{docking  stations}. Let $D=\{ d_1,...,d_r \}$ is the set of docking stations that are located inside $\mathbb{A}$ and capable of providing charging facility for one or more mobile sensor nodes. Mobile sensor nodes move with a constant \textit{speed} and senses the field under their \textit{sensing range} throughout the move. Mobile nodes come back to the same docking station from where it started the sweep move. \textit{Sensing field} of a mobile sensor node or a static sensor node is considered as a circular disk with current location of the sensor node as the center of  the disk. The sensing range is the radius of the disk.
+
+\textit{Minimum Distance Area Sweep Coverage Problem} is to find the \textit{trajectory} for mobile sensor nodes so as to cover $\mathbb{A}$ atleast once in a given time period by any of the sensor nodes  with minimal cumulative distance travelled by all the mobile sensor nodes. This time period is known as \textit{sweep interval} or  \textit{sweep period}. The instantaneous position of the mobile sensor node with respect to time is known as trajectory. The mobile nodes have to sweep cover the area that is not covered by the static sensors. Each mobile node has to dock at its designated docking station to charge up after the sweep.
+
+\subsection{Minimum Distance Area Sweep Coverage Problem}
+
+Let $T$ be the sweep period and $V$ be the constant speed of the mobile sensor nodes. Consider the area of interest is divided into grid of square cells of side length less than sensing range of the mobile sensor node. Suppose $N_r$ be the number of rows and $N_c$ be the number of columns, then there are total $N_r \times N_c$ cells in $\mathbb{A}$. Let $C$ be the set of cells in the grid, $C=\{c_1,...,c_n\}$.  The cells are numbered from left to right and then from top to bottom. Topmost left cell is numbered as $c_1$ and bottommost right cell is numbered as $c_n$. Each cell $c_i$ is represented as $\left( x_{c_i},y_{c_i} \right)$ where $x_{c_i}$ is the row number and $y_{c_i}$ is the column number of the cell $c_i$.
+Each static sensor node $s_i$ will have a tuple associated with it as $\left\langle s_i, L_i^s, R_i^s \right\rangle$, where $L_i^s$ is the location of the static sensor node and is represented as a cell in $\mathbb{A}$, $R_i^s$ is the sensing range of the static sensor node $s_i$.
+Each docking station $d_j$ will have a tuple associated with it as $\left\langle d_j,L_j^d, \beta_j, cap_j \right\rangle $, where $L_j^d$ is the location of the docking station and is represented as a cell in $\mathbb{A}$, $\beta_j$ is the charging rate per unit time, $cap_j$ is the charging capacity of the docking station i.e.,\ number of mobile sensor nodes that can be simultaneously charged.
+Each mobile sensor node $m_i$ will have a tuple associated with it as $\left\langle m_i, R_i^m, \gamma_i, \delta_i, d_j \right\rangle$, where $R_i^m$ is the sensing range of $m_i$, $\gamma_i$ is the discharge rate of $m_i$ per unit distance, $\delta_i$ is the distance travelled by $m_i$ in terms of number of cells during a sweep and $d_j$ is the docking station where $m_i$ is attached.
+
+The sweep period, $T$ is divided into $T$ time slots where [0-1] denotes the 1st time slot, [1-2] denotes the 2nd time slot,...,[T-1,T] denotes the $Tth$ time slot.
+Assume that initially all the mobile sensor nodes are fully charged. Let $M_c$ be the \textit{maximum charge capacity} of each mobile sensor node. Total energy consumed by mobile sensor node $m_i$ in a sweep is $E_i = \delta_i \times \gamma_i$. Sensing and communication energy requirements are not considered for simplicity. The time required for the mobile sensor node $m_i$ to recharge from a docking station $d_j$ is $\lambda_{m_i,d_j} = E_i / \beta_j$. Let time taken by a mobile sensor node $m_i$ to finish its flight for a sweep be $\tau_m = \delta_i / \ V$.
+
+\textit{Cell occupancy status} indicates the trajectory of the mobile sensor nodes and it can be represented as a set of variables $ \{ \phi_{t,c,m_i} \}$, where $ \phi_{t,c,m_i} = 1 $ indicates at time $t$ the mobile sensor node $m_i$ is located at cell $c$; otherwise $ \phi_{t,c,m_i} = 0 $.
+\[
+\phi_{t,c,m_i}=
+%A
+\begin{dcases}
+1 & \text{if}\  \exists {m_i \in {M}}\ \ s.t. \ position(m_i, t) = c  \\
+0 & \text{otherwise.}
+\end{dcases}
+\]
+
+
+The objective is to design the trajectory and the recharge schedule for the mobile sensor node so as to  minimize the cumulative distance travelled $(\Delta)$ by mobile sensor nodes.
+
+The output is the trajectory i.e., cell occupancy status as a set of variables $ \{ \phi_{t,c,m_i} \}$   and the charging schedule as a set of variables $\left\lbrace \chi_{m_i,d_j,t} \right\rbrace $ where $\chi_{m_i,d_j,t} = 1 $ indicates that mobile sensor node $m_i$ is charging at docking station $d_j$ at time slot $t$; otherwise $\chi_{m_i,d_j,t} = 0 $. The problem is formally specified as follows:\\
+
+minimize\ \ \ 
+$
+\Delta = \sum\limits_{t \in T} \sum\limits_{c \in C} \sum\limits_{m_i \in M} \phi_{t,c,m_i}
+$\\\\
+subject to the following conditions
+\begin{eqnarray}
+\sum\limits_{t \in T} \sum\limits_{c \in C} \sum\limits_{m_i \in M} \phi_{t,c,m_i} \geq N_c 
+\end{eqnarray}
+\begin{eqnarray}
+\forall{c\in C}\ \sum\limits_{t \in T} \sum\limits_{m_i \in M} \phi_{t,c,m_i} \geq 1
+\end{eqnarray}
+\begin{eqnarray}
+\forall{t\in T}\ \forall{m_i \in M}\  \sum\limits_{c \in C} \phi_{t,c,m_i} \leq 1
+\end{eqnarray}
+\begin{eqnarray}
+\forall{m_i \in M}\ \sum\limits_{t \in T} \sum\limits_{c \in C} \phi_{t,c,m_i} \times \gamma_i \leq M_c
+\end{eqnarray}
+\begin{eqnarray}
+\forall{d_j \in D}\ \forall{t \in T} \sum\limits_{m_i \in M}{ \chi_{m_i,d_j,t} } \leq cap_j 
+\end{eqnarray}\\
+Constraint 1 specifies that the total cells to be covered in each sweep. Constraint 2 tells that the entire area should be covered i.e, every cells has to be visited once. Constraint 3 tells that same mobile sensor node should not be in two different cells at the same time. Constraint 4 indicates that maximum distance a mobile sensor node can travel after a full charging is limited to the maximum charge capacity, $M_c$ of the mobile sensor node. Constraint 5 specifies that at any time slot, the number of mobile sensor nodes scheduled for charging at a docking station should not be more than the capacity of the docking station. 
+
+The movement of an MSN from one cell to another is restricted by the neighbour cell movement policy. Let $position \left( m_i, t \right)  = \left( x_{c_i} , y_{c_i} \right) $, then \\ $position \left( m_i, t+1 \right) =\left( x_{c_i}' , y_{c_i}' \right) $ where $ x_{c_i}-1 \leq x_{c_i}' \leq x_{c_i}+1$ and $ y_{c_i}-1 \leq y_{c_i}' \leq y_{c_i}+1$ for $ 1 \leq x_{c_i}' \leq N_r$  and $ 1 \leq y_{c_i}' \leq N_c$.
+
+We refer this problem as Minimum Distance Area Sweep Coverage Problem (MinDistAreaSCov).
+
+\subsection{NP-Completeness of MinDistAreaSCov Problem}
+In this section, we define a restricted version of MinDistAreaSCov Problem where the static sensor nodes are not considered in $\mathbb{A}$. Also relax the number of docking stations i.e., there can be individual docking stations for each mobile sensor node. The number of docking stations and mobile sensor nodes can be same. We refer this restricted version of MinDistAreaSCov problem as \textit{R-MinDistAreaSCov Problem}. The output of R-MinDistAreaSCov is a set of variables  $ \{ \phi_{t,c,m_i} \}$, where $ \phi_{t,c,m_i} = 1 $ indicates at time $t$ the mobile sensor node $m_i$ is located at cell $c$; otherwise $ \phi_{t,c,m_i} = 0 $.
+
+The R-MinDistAreaSCov problem is defined as follows:\\
+
+minimize\ \ \ 
+$
+\Delta^{'} = \sum\limits_{t \in T} \sum\limits_{c \in C} \sum\limits_{m_i \in M} \phi_{t,c,m_i}
+$\\
+
+subject to the condition $\forall c \in C \sum_{t \in T} \sum_{m_i \in M} \phi_{t,c,m_i} \geq 1 $. The decision version of R-MinDistAreaSCov problem (D-R-MinDistAreaSCov) is to decide that given the number of mobile sensor nodes $q$, whether there exist an assignment of 0 or 1 to the set of variables $\phi_{t,c,m_i}$ such that $\forall c \in C \sum_{t \in T} \sum_{m_i \in M} \phi_{t,c,m_i} \geq 1 $.  Then we show that \textit{D-R-MinDistAreaSCov} problem is NP-Complete by reducing it from \textit{decision version of set cover problem (D-SCP)} which is a known NP-Complete problem. This implies that MinDistAreaSCov problem is also NP-Complete. \\\\
+The decision version of set cover problem (D-SCP) is defined as follows:\\
+
+\textbf{D-SCP:}
+Let $U=\{ 1,2,...,n \}$ be the universal set  and a set $X=\{1,2...,m\}$. Let $S_i$ be a subset of  $U$ such that $S_i \subseteq U$ and $\bigcup_{i \in X} S_i=U$. Is there an $H$ for a given $k$ where $k$ is a positive integer such that $H \subseteq X$, $\bigcup_{i \in H} S_i=U$ and $ \mid H \mid = k ? $ 
+ \\\\
+\textbf{\textit{Theorem 1.}} \textit{The D-R-MinDistAreaSCov problem is NP-Complete}.\\\\
+\textbf{\textit{Proof.}} First of all let us prove D-R-MinDistAreaSCov $\in$ NP. Given a certificate of the problem, we can find whether all the cells are covered by atleast one mobile sensor node by finding the sum of $\phi_{t,c,m_i} $ for each cell over the time period T. The result is cell occupancy count for each cell. If this individual sum for each and every  cell is greater than or equal to one then the entire area is covered using $q$ mobile sensor nodes. Thus, the certificate can be verified in polynomial time.
+
+Now we prove that D-R-MinDistAreaSCov is NP-hard by showing that D-SCP $\leq_p$ D-R-MinDistAreaSCov. The reduction algorithm takes an instance of D-SCP, and produces an instance of D-R-MinDistAreaSCov in polynomial time as follows:
+
+Let $A$ be an input instance of D-SCP with $U=\{1,2,...,n\}$ as universal set, $X=\{1,2,...,m\}$ i.e., $m$ number of subsets $S_i \subseteq U$ and a positive integer $k$. Then the instance $B$ of D-R-MinDistAreaSCov is defined by setting (1) $C=\{1,2,...,c_n\}$ as set of all cells in the grid, (2)Consider $C_{m_i}$ as the set of cells occupied in a sweep by an MSN as the subset of $C$. (3)There can be $m$ number of MSNs and (4)cover entire area (cells) with $q$ number of MSN i,e., $q=k$. 
+
+We first show that a solution of  D-SCP  gives  a  solution  of  D-R-MinDistAr- eaSCov. Let $H'$ be a solution of D-SCP i.e., $H' \subseteq X$ gives the subsets for covering $U$ and $\mid H' \mid = k$. By our reduction elements of $H'$ are $C'_{m_i}$ i.e., cells covered by each $m_i$ are subsets of $C$. $C'_{m_i}$ is computed from the output instance $\phi{'}_{t,c,m_i}$ for every MSN of D-R-MinDistAreaSCov. $q = k$ is the number of mobile sensor nodes. If set cover is possible with $k$ subsets of $S_i$, then entire area (cells) can be covered with $q$ MSNs. Therefore $\bigcup_{i=1}^{q} C'_{m_i} = C$. Hence, $C'_{m_i}$ is a valid solution of D-R-MinDistAreaSCov. Hence, a solution of D-SCP gives a solution of D-R-MinDistAreaSCov.
+
+We next show that the solution of D-R-MinDistAreaSCov gives a solution of D-SCP.  Solution of D-R-MinDistAreaSCov gives the cell covered by each MSN $m_i$ at time $t$ as $\phi{'}_{t,c,m_i}$. $C'_{m_i}$ where $1 \leq i \leq q$ gives the set of cells covered by each MSN $m_i$. This is deduced from $\phi{'}_{t,c,m_i}$. Avoid the notion of time slot and treat the cells covered during entire sweep as the elements of set $C'{m_i}$.  $\bigcup_{i=1}^{q} C'_{m_i} = C$ i.e.,entire area of interest is covered.
+
+From this, we will construct $H'$ as follows. Consider $C$, set of all cells in the area of interest as $U$ in D-SCP and $C'{m_i}$ as $S_i$ where $i$ in  $H'$, the set of subsets which cover $U$. $\mid H' \mid$ is $q$, the number of MSNs and $\{S_i\}$ is equivalent to $\{C'_{m_i} \}$. Hence,  $\mid H' \mid = k$ is a valid solution of D-SCP. Hence, a solution of D-R-MinDistAreaSCov gives a solution of D-SCP.
+
+Hence, we have shown that for the reduction proposed, a valid solution of D-SCP gives a valid solution of 
+D-R-MinDistAreaSCov and a valid solution of D-R-MinDistAreaSCov gives a valid solution of D-SCP. Hence, D-R-MinDistAreaSCov is NP-Complete.
+
+

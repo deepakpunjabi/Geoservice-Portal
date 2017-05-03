@@ -1,0 +1,143 @@
+\documentclass[12pt]{report}
+\usepackage{psfig,setspace}
+\usepackage{pslatex}
+\usepackage[a4paper,left=1.5in,right=1in,top=1.5in]{geometry}
+\usepackage[intlimits]{amsmath}
+\usepackage{paralist}
+\usepackage{makeidx}
+\usepackage{graphicx,amssymb,amsthm}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+%\usepackage[ruled,linesnumbered,algosection]{algorithm2e}
+\usepackage{appendix}
+%\usepackage{subfig,multirow,longtable,fancyhdr,figsize,multicol}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{subfig} 
+\usepackage{fancyhdr}
+\usepackage{pslatex}
+\usepackage{epsfig}
+\usepackage{ulem}
+\usepackage[T1]{fontenc} 
+%\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{float}
+\usepackage{slashbox}
+\usepackage{marvosym}
+\usepackage[section] {placeins}
+\usepackage{morefloats}
+\usepackage{algcompatible}
+\usepackage{booktabs}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[nottoc]{tocbibind}
+% ,numbib
+
+\newtheorem{lemma1}{Lemma}
+\newtheorem{lemma2}[lemma1]{Lemma}
+\newtheorem{definition1}{Definition}
+\newtheorem{definition2}[definition1]{Definition}
+\newtheorem{definition3}[definition1]{Definition}
+\newtheorem{definition4}[definition1]{Definition}
+
+\linespread{1.5}
+\normalem
+\newtheorem{mydef}{Definition}
+\setlength{\headheight}{16pt}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\NI}{\noindent}
+\newcommand{\midplusspace}{\baselineskip0.26truein}
+\setcounter{secnumdepth}{4} \setcounter{tocdepth}{4}
+
+
+\begin{document}
+\pagenumbering{roman}
+\setcounter{page}{1}
+\include{chapters/cover}
+%\include{dummy}
+\newpage
+\date{}
+\thispagestyle{empty}
+
+\include{chapters/firstpage}
+\newpage
+
+% \include{chapters/title}
+%\include{dummy}
+%\newpage 
+\include{chapters/declaration}
+\newpage
+\include{chapters/certificate}
+%\include{dummy}
+\newpage
+\include{chapters/ack}
+%\include{dummy}
+\newpage
+
+
+\include{chapters/abstract}
+\newpage
+
+% \include{mychap/abstract}
+% \newpage
+%\addcontentsline{toc}{chapter}{ \numberline{}
+%\textbf{Contents}}
+\tableofcontents
+\cleardoublepage
+%\include{dummy}
+
+%\addcontentsline{toc}{chapter}{\numberline{}List of Figures}
+\listoffigures
+\cleardoublepage
+
+%\addcontentsline{toc}{chapter}{\numberline{}List of Tables}
+\listoftables
+\cleardoublepage
+
+%\addcontentsline{toc}{chapter}{\numberline{}List of Algorithms}
+\listofalgorithms
+\cleardoublepage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setstretch{1.2}
+\pagestyle{fancy}
+\rhead{}
+\vskip 3in
+\begin{center}
+\textbf { \LARGE  Spatial Data: Crawling, Metadata Discovery, Publishing \& Query Orchestration}
+%\vspace*{.25cm}
+%\textbf { \LARGE Separation of Duty Constraints}
+\vskip 0.3in
+\end{center}
+%\include{chapters/dummy}
+
+% my chapters
+\include{mychap/chap1}
+\include{mychap/chap2}
+\include{mychap/chap3}
+\include{mychap/chap4}
+\include{mychap/chap5}
+\include{mychap/chap6}
+\include{mychap/bib}
+
+% \include{chapters/chapter1}
+% \newpage
+% \include{chapters/chapter2}
+% \newpage
+% \include{chapters/chapter3}
+% \newpage
+% \include{chapters/chapter4}
+% \newpage
+% \include{chapters/chapter5}
+
+\newpage
+
+%============================ References ==============================
+
+\bibliographystyle{ieetr}
+\nocite{*} 
+\bibliography{bibtex/1}
+
+
+\end{document}

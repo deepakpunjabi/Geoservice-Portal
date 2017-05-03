@@ -1,0 +1,37 @@
+\chapter{Conclusion and Future Direction} 
+This thesis described a system for automatic detection and verification of rumors about
+real-world events on Twitter. Here we will summarize the contributions of this thesis and explore possible future directions for extending this work.
+\section{Contribution of the Thesis}
+The work described in this thesis describes how to create a system for detection and verification of rumors on Twitter.The major contributions are as follows:-
+\begin{itemize}
+\item We have used the NoSQL framework effectively to store the tweets given the huge volume of the tweets that are posted everyday.
+\item The Hadoop framework has been effectively utilized to run the information retrieval algorithm given the size of the data involved for filtering and processing the necessary subset of tweets.
+\item The extraction of semantic information to enrich the context of the rumor using Part-of-Speech tags
+\item Extending the clustering algorithm of candidate rumor clusters for finding overlapping rumor clusters is a key component that has been developed.
+\item A significant contribution of this thesis has been to find the essential temporal characteristics of the data and other Twitter specific meta data about tweets that constitute a rumor.
+\end{itemize}
+\clearpage
+\section{Future scope}
+There are many ways to extend the works presented in this thesis, several of which have been mentioned through out this document. Here, we will discuss what we believe to be
+the the five most fruitful directions for future work. These directions are:
+\begin{itemize}
+	\item Linking to semantic web
+	\item Design of classifier using temporal as well as non-temporal properties
+	\item Extend system to other media platforms (social and traditional)
+	\item Predict the impact of rumors
+	\item Strategies for dampening the effects of rumors
+\end{itemize}
+	There are already a wide variety of linked data sources incorporated in the semantic web as mentioned in \cite{bontcheva2012making} .The main advantages of these data sources are that they provide plentiful amount of data on a growing number of topics and  they contain factual information about a large number of entities,covering these topics. The main goal is to exploit this semantic contextual information about entities contained in tweets by linking them to the data sources.This will aid in the data enrichment of the tweet data.Ultimately, this will help in the decision to identify rumors. 
+    \\
+    \par
+    We have seen that the data properties of rumors and non rumors are different.The current work required manual intervention of looking at tweet content and verifying the same with the properties that the data exhibits.Using an exhaustive training data set which is annotated by an expert group of users who are trained to identify the correct rumors,we can build a classifier which will  automatically classify and therefore identify new rumors.
+    \\
+    \par	
+	The current system is primarily designed for Twitter.Similar systems cam be extended for other social networks such as Facebook,Reddit and LinkedIn.Though some of the features described for this work are Twitter-specific,many of the features are platform-agnostic and can readily be extracted and processed from different platforms.
+	\\
+	\par
+	In addition to detecting rumor,the system can predict the rate at which the rumor will spread and ultimately cease based on the recent data.This would be helpful to understand how many and up to what time people will be affected by the rumor.This is especially relevant for emergency services who might want to respond to false rumors that might have a large negative impact.
+	\\
+	\par
+	Finally, a system that can detect rumors may be used as a tool to counter attack the spread of rumor by administering an "antidote" in the form of content which spreads verified information about the rumor.This again would be something that would have the most relevance to the emergency services dealing with real-world emergencies as they are the ones that have to deal with the consequences and the fallout of rumors on social media. 
+

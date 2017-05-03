@@ -1,0 +1,80 @@
+% Thesis framework file. See individual files for details.
+\documentclass{iitkgpthesis}
+
+\usepackage{pifont}
+\usepackage{amsmath}
+%\usepackage{amssymb} %for >=
+\usepackage{mathtools} %for dcases and condition
+\usepackage{amsfonts} %for \mathbb{}
+
+%\usepackage{natbib}
+%\usepackage[sort&compress,square,comma,authoryear]{natbib}
+
+%\usepackage[square,sort,comma,numbers]{natbib} %for bibliography
+% package used by \citep and \citet
+%\usepackage[sort&compress,square,comma,authoryear]{natbib}
+
+% makes color citations
+%\usepackage[dvips,dvipdfm,colorlinks=true,urlcolor=blue,citecolor=red,linkcolor=red,bookmarks=true]{hyperref}
+
+
+
+
+\begin{document}
+\cleardoublepage
+% Frontmatter. Add other pages as needed.
+\pagenumbering{roman}
+
+ \include{firstpage}
+ \include{preface}
+
+ \include{abstract}
+
+ \tableofcontents
+ \listoffigures
+\newpage
+ \thispagestyle{empty}
+
+%  \include{listofnotation}
+%  \listoftables
+
+
+% Main thesis section
+\pagenumbering{arabic}
+\pagestyle{plain}
+\input{chap1}
+\input{chap2}
+\input{chap21}
+\input{chap3}
+\input{chap4}
+% \input{introduction} 
+%\include{literature}
+% \input{literature}
+% \input{problemdef}
+
+% \input{formu}
+% \input{result}
+% \include{concl}
+% \cleardoublepage
+
+% A file for citations not appearing in the document itself.
+% \input{nocites}
+% 
+% \singlespacing
+
+%\bibliographystyle{unsrt}
+
+% \bibliographystyle{plain}
+% \bibliography{wsn}
+
+% \begin{thebibliography}{5}
+\input{bib}
+% \end{thebibliography}
+
+
+% If you have no appendices, remove the following two lines.
+% If you have more appdences, add them as necessary.
+% \appendix
+% \include{apdxa}
+
+\end{document}

@@ -1,0 +1,52 @@
+feature0  (20,20) neighbours ---> 
+12 star
+0 feature
+10 star
+11 star
+
+filtering self....
+
+12 star
+10 star
+11 star
+feature1  (20,20) neighbours ---> 
+4 star
+6 box
+1 feature
+5 star
+
+filtering self....
+
+4 star
+6 box
+5 star
+feature2  (60,60) neighbours ---> 
+14 box
+13 star
+2 feature
+15 box
+
+filtering self....
+
+14 box
+13 star
+15 box
+feature3  (60,60) neighbours ---> 
+3 feature
+9 box
+8 box
+7 box
+
+filtering self....
+
+9 box
+8 box
+7 box
+
+Final ranking ...
+
+feature	Rank
+2	13
+0	8
+1	8
+3	5
